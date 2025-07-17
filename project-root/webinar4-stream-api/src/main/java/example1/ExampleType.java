@@ -1,4 +1,6 @@
 package example1;
 
-public class ExampleType {
+public enum ExampleType {
+    CORRECT,
+    WRONG
 }

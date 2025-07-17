@@ -6,11 +6,14 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-
+        filterExample();
+        exampleGroupingBy();
+        System.out.println(ExampleType.CORRECT);
+        System.out.println(ExampleType.WRONG);
     }
 
     public static void exampleGroupingBy() {
-        List<Example> examples = new getExamples();
+        List<Example> examples = getExamples();
 
         Map<ExampleType, List<Example>> collect = examples.stream()
                 .collect(Collectors.groupingBy(Example::getType, Collectors.toList()));
@@ -18,8 +21,9 @@ public class Main {
     }
 
     public static void filterExample() {
-        List<Example> exampleList = examples.stream()
-                .filter(ex -> ex.getType == ExampleType.CoRRECT)
+        List<Example> exampleList = getExamples();
+        List<Example> filteredExampleList = exampleList.stream()
+                .filter(ex -> ex.getType() == ExampleType.CORRECT)
                 .collect(Collectors.toList()); // toList();
         System.out.println(exampleList);
     }
