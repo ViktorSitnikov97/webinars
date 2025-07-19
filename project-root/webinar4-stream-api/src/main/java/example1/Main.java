@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.function.DoubleToIntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        /*
+
         filterExample();
         groupingByExample();
         System.out.println(ExampleType.CORRECT);
@@ -24,6 +23,7 @@ public class Main {
         flatMapExample();
         advancedMapExample1();
 
+        /*
         List<Integer> examples = new ArrayList<>(List.of(1, 2, 3));
         for (var item: examples) {
             item =+ item + 10;
