@@ -2,8 +2,10 @@ package example1;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 @RequiredArgsConstructor
+@ToString
 public class Book {
 
     @Getter
@@ -14,5 +16,10 @@ public class Book {
 
     @Getter
     private final int age;
-    
+
+//    public Book(String title, String author, int age) {
+//        this.title = title;
+//        this.author = author;
+//        this.age = age;
+//    }
 }
