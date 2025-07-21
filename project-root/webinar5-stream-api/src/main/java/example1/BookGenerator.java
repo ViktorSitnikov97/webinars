@@ -1,8 +1,11 @@
 package example1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class BookGenerator {
     private static final String[] TITLES = {"The Great Gatsby", "Book number 1", "Book2", "Book3", "1984"};
@@ -10,11 +13,9 @@ public class BookGenerator {
     private static final int[] YEARS = {1234, 234, 1567, 1789, 2003};
 
     public static List<Book> generateRandomBooks(int n) {
-        List<Book> books = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            books.add(generateRandomBook());
-        }
-        return books;
+        return Stream.generate(BookGenerator::generateRandomBook)
+                .limit(10)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     private static Book generateRandomBook() {
