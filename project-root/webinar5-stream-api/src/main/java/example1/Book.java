@@ -1,11 +1,13 @@
 package example1;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @RequiredArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class Book {
 
     @Getter
