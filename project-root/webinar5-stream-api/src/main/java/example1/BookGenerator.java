@@ -14,7 +14,7 @@ public class BookGenerator {
 
     public static List<Book> generateRandomBooks(int n) {
         return Stream.generate(BookGenerator::generateRandomBook)
-                .limit(10)
+                .limit(n)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
