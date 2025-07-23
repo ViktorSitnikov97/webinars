@@ -1,9 +1,14 @@
 package example1;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
@@ -55,7 +60,7 @@ public class Main {
 
         // Рассмотрим промежуточный метод dropWhile(), который принимает на вход поток элементов и
         // пропускает их мимо, пока условие внутри метода возвращает true, а потом, как только первый раз false -
-        // элементы начинают обрабатываться:
+        // следующие элементы начинают обрабатываться:
         Stream<String> strings2 = Stream.of("a1", "c1", "a5", "b1", "b3", "c2", "a4", "b3", "b2");
         strings2.dropWhile(s -> !s.contains("5"))
                 .forEach(System.out::println);
@@ -70,7 +75,88 @@ public class Main {
                 .sorted(Comparator.naturalOrder())
                 .sorted(Comparator.comparing(String::length, Comparator.reverseOrder()))
                 .forEach(System.out::println);
-*/
 
+        // Для того, чтобы можно было сортировать пользователей без передачи компаратора - методом sorted() - необходимо, чтобы
+        // класс User реализовывал интерфейс Comparable<T>:
+        Stream<User> users3 = Stream.generate(UserGenerator::generateRandomUser)
+                .limit(10);
+        users3.sorted()
+                .forEach(System.out::println); // compareTo() переопределен на  сравнение по возрасту
+
+        Stream<User> users4 = Stream.generate(UserGenerator::generateRandomUser)
+                .limit(10);
+        users4.sorted((o1, o2) -> String.CASE_INSENSITIVE_ORDER.compare(o1.name(), o2.name()))
+                .sorted(Comparator.comparing(User::age))
+                .sorted((o1, o2) -> Integer.compare(o2.age(), o1.age()))
+                .forEach(System.out::println);
+
+        // Задачка: вывести все уникальные книги, которые есть у пользователей старше 30-ти лет, в отсортированном порядке по названиям:
+        Stream<User> users5 = Stream.generate(UserGenerator::generateRandomUser)
+                .limit(9);
+        users5.filter(u -> u.age() >= 30)
+                .map(User::books)
+                .flatMap(Collection::stream)// books -> books.stream()
+                .distinct()
+                .sorted(Comparator.comparing(Book::getTitle))
+                .forEach(System.out::println);
+
+        // Далее рассмотрим терминальные операции:
+
+        Stream<User> users6 = Stream.generate(UserGenerator::generateRandomUser)
+                .limit(9);
+
+        Map<String, List<User>> collect1 = users6.collect(Collectors.groupingBy(User::name));
+        System.out.println(collect1);
+
+        Stream<User> users7 = Stream.generate(UserGenerator::generateRandomUser)
+                .limit(3);
+
+        Map<String, Set<User>> collect2 = users7.collect(Collectors.groupingBy(User::name, Collectors.toSet()));
+        System.out.println(collect2);
+
+        Stream<User> users8 = Stream.generate(UserGenerator::generateRandomUser)
+                .limit(100);
+        Map<String, Long> result = users8.collect(Collectors.groupingBy(User::name, TreeMap::new, Collectors.counting()));
+        System.out.println(result);
+
+
+//        Посчитаем количество уникальных книг у пользователей:
+
+        Stream<User> users9 = Stream.generate(UserGenerator::generateRandomUser)
+                .limit(10);
+
+        var count = users9
+                .map(User::books)
+                .flatMap(Collection::stream)
+                .distinct()
+                .count();
+        System.out.println(count);
+
+//        Посчитаем количество всех книг у пользователей:
+        Stream<User> users10 = Stream.generate(UserGenerator::generateRandomUser)
+                .limit(10);
+
+        var sum = users10
+                .map(User::books)
+                .mapToInt(List::size)
+                .sum();
+        System.out.println(sum);
+
+//        Посчитаем среднее количество книг у каждого пользователя:
+        Stream<User> users11 = Stream.generate(UserGenerator::generateRandomUser)
+                .limit(5);
+        var average = users11
+                .map(User::books)
+                .mapToInt(List::size)
+                .average();
+        System.out.println(average);
+
+ */
+        // Рассмотрим терминальные методы, что возвращают boolean:
+        Stream<String> strings11 = Stream.of("a1", "c1", "a5", "b1", "b3", "c2", "a4", "b3", "b2");
+
+        var isTrue = strings11
+                .noneMatch(s -> s.isEmpty()); // .allMatch(s -> !s.isEmpty());
+        System.out.println(isTrue);
     }
 }
