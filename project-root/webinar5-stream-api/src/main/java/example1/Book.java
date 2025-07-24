@@ -17,7 +17,7 @@ public class Book {
     private final String author;
 
     @Getter
-    private final int age;
+    private final int year;
 
 //    public Book(String title, String author, int age) {
 //        this.title = title;
