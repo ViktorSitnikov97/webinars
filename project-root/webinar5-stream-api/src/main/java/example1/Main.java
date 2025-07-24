@@ -1,18 +1,18 @@
 package example1;
 
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 /*
 
         System.out.println(UserGenerator.generateRandomUser());
@@ -151,12 +151,37 @@ public class Main {
                 .average();
         System.out.println(average);
 
- */
+
         // Рассмотрим терминальные методы, что возвращают boolean:
         Stream<String> strings11 = Stream.of("a1", "c1", "a5", "b1", "b3", "c2", "a4", "b3", "b2");
 
         var isTrue = strings11
                 .noneMatch(s -> s.isEmpty()); // .allMatch(s -> !s.isEmpty());
         System.out.println(isTrue);
+
+        Stream<String> strings12 = Stream.of("a1", "c1", "a5", "b1", "b3", "c2", "a4", "b3", "b2");
+
+        var isTrue2 = strings12
+                .anyMatch(s -> s.isBlank()); // хотя бы один из набора соответствует - true
+        System.out.println(isTrue2);
+
+
+        // Задача: вернуть первую книгу, которая удовлетворяет заданному условию year > 1900:
+        Optional<Book> result = BookGenerator.generateRandomBooks(10).stream()
+                .filter(book -> book.getYear() > 1900)
+                .findFirst();
+        System.out.println(result.orElseThrow(Exception::new));
+
+        // Два способа соединить все элементы стрима в одну строку:
+        Stream<String> strings13 = Stream.of("a1", "c1", "a5", "b1", "b3", "c2", "a4", "b3", "b2");
+        String string1 = strings13.reduce("", String::concat); // (s, s_next) -> s.concat(s_next)
+        System.out.println(string1);
+
+        Stream<String> strings14 = Stream.of("a1", "c1", "a5", "b1", "b3", "c2", "a4", "b3", "b2");
+        String string2 = strings14.collect(Collectors.joining());
+        System.out.println(string2);
+
+ */
+
     }
 }
