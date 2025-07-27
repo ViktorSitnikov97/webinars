@@ -15,10 +15,14 @@ public class Main {
 
     }
     public static List<String> perform(List<String> list) {
+        StringComparator customComparator = new StringComparator();
         return list.stream()
                 .map(s -> s.charAt(0))// s -> s.substring(0, 1)
                 .map(s -> s.toString().toUpperCase())
                 .sorted(Comparator.reverseOrder())
+                .sorted(customComparator) // в естественном порядке
+                .sorted((str1, str2) -> str1.compareTo(str2)) // в естественном порядке с помощью ламбды
+                .sorted(String::compareTo) // в естественном порядке с помощью ссылки на метод
                 .collect(Collectors.toList());
     }
 }
