@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
+        /*
 // Решить задачку1: вывести сгруппированный список пар длин и строк в порядке возрастания длины.
         List<String> list1 = Arrays.asList("asdf", "qwerty", "abc", "zxc", "gg");
 
@@ -28,5 +29,16 @@ public class Main {
                 })
                 .toList();
         System.out.println(result2);
+
+
+        // Решить задачку3: вывести список вторых букв строк в упорядоченном виде.
+        List<String> list3 = List.of("asdf", "adda", "abc", "qwerty", "HHru", "zXC");
+        List<String> result3 = list3.stream()
+                .map(s -> s.substring(1, 2))
+                .sorted((s1, s2) -> String.CASE_INSENSITIVE_ORDER.compare(s1, s2))
+                .toList();
+        System.out.println(result3);
+
+         */
     }
 }
