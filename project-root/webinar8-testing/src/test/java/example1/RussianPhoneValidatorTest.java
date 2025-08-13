@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class RussianPhoneValidatorTest {
 
@@ -46,5 +47,14 @@ class RussianPhoneValidatorTest {
         // в два параметра (или больше, если в строке больше параметров через запятую) из строки
         boolean isValid = RussianPhoneValidator.validatePhoneNumber(phoneNumber);
         Assertions.assertEquals(expectedResult, isValid);
+    }
+
+    // Также можно воспользоваться аннотацией @ValueSource для случая, когда входные данные
+    // ожидают проверки либо только на позитивный случай, либо только на негативный:
+    @ParameterizedTest
+    @ValueSource(strings = {"+91231231223123", "666122211", "-12237891221"})
+    void validatePhoneNumbersNegativeNew(String phoneNumber) {
+        boolean actual = RussianPhoneValidator.validatePhoneNumber(phoneNumber);
+        Assertions.assertFalse(actual);
     }
 }
