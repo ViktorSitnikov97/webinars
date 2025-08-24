@@ -20,7 +20,7 @@ public class PreferencesServiceImpl implements PreferencesService {
                     List.of(FOOTBALL, READING, WATCHING_FILMS, WALKING)
             );
             case "2" -> new HashSet<>(
-                    List.of(Preference.WATCHING_FILMS, Preference.WATCHING_FILMS)
+                    List.of(Preference.WATCHING_FILMS, Preference.READING)
             );
             case "3" -> new HashSet<>(
                     List.of(WATCHING_FILMS, WALKING)

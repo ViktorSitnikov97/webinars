@@ -16,7 +16,7 @@ public class AdviceService {
     }
     public Set<Preference> getAdvice(String userId) {
         Weather weather = weatherService.currentWeather();
-        Set<Preference> preferences = preferencesService.get(userId + "1");
+        Set<Preference> preferences = preferencesService.get(userId);
 
         if (Weather.RAINY == weather || Weather.STORMY == weather) {
             return preferences.stream()
